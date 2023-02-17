@@ -1,4 +1,5 @@
 const totalLists = document.getElementById('total-lists');
+const showTodoList = document.getElementById('show-todo-list');
 const randomBtn = document.getElementById('randomBackgroundBtn');
 
 const listsContainer = document.querySelector('[data-lists]')
@@ -164,7 +165,17 @@ function clearElement(element) {
 
 function showTotalLists() {
   totalLists.textContent = lists.length;
+  if (lists.length === 0) {
+    showTodoList.classList.add('hidden');
+  } else {
+    showTodoList.classList.remove('hidden');
+
+  }
+
 }
+
+console.log(lists.length);
+
 
 function showCurrentDateTime() {
   setInterval(()=> {
@@ -178,6 +189,7 @@ function showCurrentDateTime() {
     // find the html element with the id of time
     // set the innerHTML of that element to the date a space the time
     document.getElementById('time').innerHTML = n + ' ' + time;
+    showTotalLists();
   }, 1000);
 }
 
@@ -197,4 +209,3 @@ randomBtn.addEventListener('click', changeColor);
 
 // On Load
 showCurrentDateTime();
-showTotalLists();
