@@ -1,4 +1,5 @@
 const totalLists = document.getElementById('total-lists');
+const randomBtn = document.getElementById('randomBackgroundBtn');
 
 const listsContainer = document.querySelector('[data-lists]')
 const newListForm = document.querySelector('[data-new-list-form]')
@@ -179,6 +180,20 @@ function showCurrentDateTime() {
     document.getElementById('time').innerHTML = n + ' ' + time;
   }, 1000);
 }
+
+function getRandomColor() { //To give me a new rgb number everytime
+  return (Math.floor(Math.random() * (255 - 10)) + 10);
+}
+
+function getColor() {
+return `rgb(${getRandomColor()}, ${getRandomColor()}, ${getRandomColor()})`;
+}
+
+function changeColor(){
+  document.body.style.background = getColor();
+}
+
+randomBtn.addEventListener('click', changeColor);
 
 // On Load
 showCurrentDateTime();
