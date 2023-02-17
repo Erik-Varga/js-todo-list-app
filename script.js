@@ -1,3 +1,6 @@
+const totalLists = document.getElementById('total-lists');
+
+
 const listsContainer = document.querySelector('[data-lists]')
 const newListForm = document.querySelector('[data-new-list-form]')
 const newListInput = document.querySelector('[data-new-list-input]')
@@ -11,7 +14,6 @@ const newTaskForm = document.querySelector('[data-new-task-form]')
 const newTaskInput = document.querySelector('[data-new-task-input]')
 const clearCompleteTasksButton = document.querySelector('[data-clear-complete-tasks-button]')
 
-const totalLists = document.getElementById('total-lists');
 
 const LOCAL_STORAGE_LIST_KEY = 'task.lists'
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = 'task.selectedListId'
@@ -41,15 +43,23 @@ clearCompleteTasksButton.addEventListener('click', e => {
   saveAndRender()
 })
 
-function deleteList() {
+// function deleteList() {
+//   if (confirm("Do you really want to delete this list?")) {
+//     lists = lists.filter(list => list.id !== selectedListId)
+//     selectedListId = null
+//     saveAndRender()
+//   } else {
+//     return;
+//   }
+// }
+
+deleteListButton.addEventListener('click', e => {
   if (confirm("Do you really want to delete this list?")) {
     lists = lists.filter(list => list.id !== selectedListId)
     selectedListId = null
     saveAndRender()
-  } else {
-    return;
   }
-}
+})
 
 newListForm.addEventListener('submit', e => {
   e.preventDefault()
@@ -149,9 +159,9 @@ function clearElement(element) {
   }
 }
 
-if (lists.length > 0) {
-  render();
-}
+
+
+
 
 function showTotalLists() {
   totalLists.textContent = lists.length;
@@ -173,6 +183,5 @@ function showCurrentDateTime() {
 }
 
 // On Load
-
 showCurrentDateTime();
 showTotalLists();
