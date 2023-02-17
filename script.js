@@ -1,6 +1,5 @@
 const totalLists = document.getElementById('total-lists');
 
-
 const listsContainer = document.querySelector('[data-lists]')
 const newListForm = document.querySelector('[data-new-list-form]')
 const newListInput = document.querySelector('[data-new-list-input]')
@@ -13,7 +12,6 @@ const taskTemplate = document.getElementById('task-template')
 const newTaskForm = document.querySelector('[data-new-task-form]')
 const newTaskInput = document.querySelector('[data-new-task-input]')
 const clearCompleteTasksButton = document.querySelector('[data-clear-complete-tasks-button]')
-
 
 const LOCAL_STORAGE_LIST_KEY = 'task.lists'
 const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = 'task.selectedListId'
@@ -68,8 +66,8 @@ newListForm.addEventListener('submit', e => {
   const list = createList(listName)
   newListInput.value = null
   lists.push(list)
-  showTotalLists();
   saveAndRender()
+  showTotalLists();
 })
 
 newTaskForm.addEventListener('submit', e => {
