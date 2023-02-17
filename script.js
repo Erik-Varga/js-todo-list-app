@@ -156,7 +156,6 @@ function showTotalLists() {
   totalLists.textContent = lists.length;
 }
 
-
 function showCurrentDateTime() {
   setInterval(()=> {
     // get a new date (locale machine date time)
@@ -170,6 +169,13 @@ function showCurrentDateTime() {
     // set the innerHTML of that element to the date a space the time
     document.getElementById('time').innerHTML = n + ' ' + time;
   }, 1000);
+}
+
+const welcomeMessage = document.getElementById('welcome');
+
+function showHide() {
+  console.log(totalLists);
+  welcomeMessage.classList.remove("hidden");
 }
 
 // On Load
