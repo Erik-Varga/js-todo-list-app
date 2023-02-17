@@ -148,6 +148,10 @@ function clearElement(element) {
   }
 }
 
+if (lists.length > 0) {
+  render();
+}
+
 function showTotalLists() {
   totalLists.textContent = lists.length;
 }
@@ -169,6 +173,6 @@ function showCurrentDateTime() {
 }
 
 // On Load
-render();
+
 showCurrentDateTime();
 showTotalLists();

@@ -82,6 +82,10 @@ footer a:hover {
   margin: -0.3em 0 0.5em;
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .all-tasks {
   grid-area: lists;
 }
