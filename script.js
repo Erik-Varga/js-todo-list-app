@@ -1,6 +1,5 @@
 const totalLists = document.getElementById('total-lists');
-const showTodoList = document.getElementById('show-todo-list');
-const randomBtn = document.getElementById('randomBackgroundBtn');
+const randomBtn = document.getElementById('random-button');
 
 const listsContainer = document.querySelector('[data-lists]')
 const newListForm = document.querySelector('[data-new-list-form]')
@@ -20,12 +19,47 @@ const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = 'task.selectedListId'
 let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || []
 let selectedListId = localStorage.getItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY)
 
+let isListEmpty = true;
+
+function showCurrentDateTime() {
+  setInterval(()=> {
+    // get a new date (locale machine date time)
+    var date = new Date();
+    // get the date as a string
+    var n = date.toDateString();
+    // get the time as a string
+    var time = date.toLocaleTimeString();
+    
+    // find the html element with the id of time
+    // set the innerHTML of that element to the date a space the time
+    document.getElementById("time").innerHTML = n + ' ' + time;
+    // showTotalLists();
+  }, 1000);
+}
+showCurrentDateTime();
+
+function getRandomColor() { //To give me a new rgb number everytime
+  return (Math.floor(Math.random() * (255 - 10)) + 10);
+}
+
+function getColor() {
+  return `rgb(${getRandomColor()}, ${getRandomColor()}, ${getRandomColor()})`;
+}
+
+function changeColor() {
+  document.body.style.background = getColor();
+}
+
+randomBtn.addEventListener('click', changeColor);
+
+
 listsContainer.addEventListener('click', e => {
   if (e.target.tagName.toLowerCase() === 'li') {
     selectedListId = e.target.dataset.listId
     saveAndRender()
   }
 })
+
 
 tasksContainer.addEventListener('click', e => {
   if (e.target.tagName.toLowerCase() === 'input') {
@@ -38,20 +72,12 @@ tasksContainer.addEventListener('click', e => {
 })
 
 clearCompleteTasksButton.addEventListener('click', e => {
-  const selectedList = lists.find(list => list.id === selectedListId)
-  selectedList.tasks = selectedList.tasks.filter(task => !task.complete)
-  saveAndRender()
+  if (confirm("Do you really want to clear the completed tasks?")) {
+    const selectedList = lists.find(list => list.id === selectedListId)
+    selectedList.tasks = selectedList.tasks.filter(task => !task.complete)
+    saveAndRender()
+  }
 })
-
-// function deleteList() {
-//   if (confirm("Do you really want to delete this list?")) {
-//     lists = lists.filter(list => list.id !== selectedListId)
-//     selectedListId = null
-//     saveAndRender()
-//   } else {
-//     return;
-//   }
-// }
 
 deleteListButton.addEventListener('click', e => {
   if (confirm("Do you really want to delete this list?")) {
@@ -68,9 +94,11 @@ newListForm.addEventListener('submit', e => {
   const list = createList(listName)
   newListInput.value = null
   lists.push(list)
+  isListEmpty = false;
   saveAndRender()
-  showTotalLists();
 })
+
+
 
 newTaskForm.addEventListener('submit', e => {
   e.preventDefault()
@@ -97,12 +125,20 @@ function createTask(name, taskDate, taskTime) {
 function saveAndRender() {
   save()
   render()
-  showTotalLists();
+  showTotalLists()
 }
 
 function save() {
   localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(lists))
   localStorage.setItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY, selectedListId)
+}
+
+function showTotalLists() {
+  totalLists.textContent = lists.length;
+}
+
+if (isListEmpty == false) {
+  showTotalLists();
 }
 
 function render() {
@@ -159,53 +195,11 @@ function clearElement(element) {
   }
 }
 
-
-
-
-
-function showTotalLists() {
-  totalLists.textContent = lists.length;
-  if (lists.length === 0) {
-    showTodoList.classList.add('hidden');
-  } else {
-    showTodoList.classList.remove('hidden');
-
-  }
-
-}
-
-console.log(lists.length);
-
-
-function showCurrentDateTime() {
-  setInterval(()=> {
-    // get a new date (locale machine date time)
-    var date = new Date();
-    // get the date as a string
-    var n = date.toDateString();
-    // get the time as a string
-    var time = date.toLocaleTimeString();
-    
-    // find the html element with the id of time
-    // set the innerHTML of that element to the date a space the time
-    document.getElementById('time').innerHTML = n + ' ' + time;
-    showTotalLists();
-  }, 1000);
-}
-
-function getRandomColor() { //To give me a new rgb number everytime
-  return (Math.floor(Math.random() * (255 - 10)) + 10);
-}
-
-function getColor() {
-return `rgb(${getRandomColor()}, ${getRandomColor()}, ${getRandomColor()})`;
-}
-
-function changeColor(){
-  document.body.style.background = getColor();
-}
-
-randomBtn.addEventListener('click', changeColor);
-
 // On Load
-showCurrentDateTime();
+if (isListEmpty == false) {
+  render();
+}
+
+
+
+

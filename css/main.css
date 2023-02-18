@@ -65,13 +65,9 @@ footer a:hover {
 .container {
   display: flex;
   flex-direction: column;
-  /* justify-content: center;
-  align-items: center; */
   gap: 10px;
   text-align: left;
   width: 95%;
-  /* display: grid; */
-  /* grid: "header header header header" auto "...... lists  active ......" auto/1fr minmax(100px, 300px) minmax(250px, 500px) 1fr; */
 }
 
 .title {
@@ -99,10 +95,6 @@ footer a:hover {
   padding-left: 1.1em;
 }
 
-/* .task-list-title {
-  cursor: pointer;
-} */
-
 .list-name {
   cursor: pointer;
 }
@@ -122,6 +114,11 @@ form {
   border: 0;
   padding: 0;
   color: inherit;
+}
+
+#random-button {
+  border: 1px solid whitesmoke;
+  padding: 10px 15px;
 }
 
 .btn.create {
