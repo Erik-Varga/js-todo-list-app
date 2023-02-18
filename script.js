@@ -1,4 +1,3 @@
-const totalLists = document.getElementById('total-lists');
 const randomBtn = document.getElementById('random-button');
 
 const listsContainer = document.querySelector('[data-lists]')
@@ -19,7 +18,6 @@ const LOCAL_STORAGE_SELECTED_LIST_ID_KEY = 'task.selectedListId'
 let lists = JSON.parse(localStorage.getItem(LOCAL_STORAGE_LIST_KEY)) || []
 let selectedListId = localStorage.getItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY)
 
-let isListEmpty = true;
 
 function showCurrentDateTime() {
   setInterval(()=> {
@@ -125,20 +123,11 @@ function createTask(name, taskDate, taskTime) {
 function saveAndRender() {
   save()
   render()
-  showTotalLists()
 }
 
 function save() {
   localStorage.setItem(LOCAL_STORAGE_LIST_KEY, JSON.stringify(lists))
   localStorage.setItem(LOCAL_STORAGE_SELECTED_LIST_ID_KEY, selectedListId)
-}
-
-function showTotalLists() {
-  totalLists.textContent = lists.length;
-}
-
-if (isListEmpty == false) {
-  showTotalLists();
 }
 
 function render() {
@@ -195,10 +184,8 @@ function clearElement(element) {
   }
 }
 
-// On Load
-if (isListEmpty == false) {
-  render();
-}
+render();
+
 
 
 
